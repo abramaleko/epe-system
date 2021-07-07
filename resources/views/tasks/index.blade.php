@@ -132,7 +132,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Budget used</label>
-                                                <input type="text" name="budget_used" class="form-control" required>
+                                                <input type="number" name="budget_used" class="form-control" required>
 
                                             </div>
                                             <div class="form-group">
