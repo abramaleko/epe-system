@@ -75,7 +75,7 @@
                                             <td class="">{{ $employee->gender }}</td>
                                             <td class="">{{ $employee->department->name }} </td>
                                             <td class="">{{ $employee->position->name }}</td>
-                                            <td class="">{{ $employee->created_at }}</td>
+                                            <td class="">{{ $employee->created_at->format('M d Y')  }}</td>
 
                                             <td class=" last">
                                                 <a data-toggle="modal" data-target="#editEmployee-{{ $employee->id }}"
@@ -137,7 +137,7 @@
                                                                     class="col-form-label col-md-3 col-sm-3 label-align">Employee
                                                                     Position</label>
                                                                 <div class="col-md-6 col-sm-6 ">
-                                                                    <select name="position_id" class="form-control name="
+                                                                    <select name="position_id" class="form-control" name="
                                                                         employee_id" id="">
                                                                         @foreach ($positions as $position)
                                                                             <option
