@@ -25,18 +25,18 @@
                     <div class="x_title">
                         <h2>List of all positions for the employees </h2>
                         <!-- <ul class="nav navbar-right panel_toolbox">
-                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                    </li>
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">Settings 1</a>
-                                                            <a class="dropdown-item" href="#">Settings 2</a>
-                                                        </div>
-                                                    </li>
-                                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                                    </li>
-                                                    </ul> -->
+                                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                                </li>
+                                                                <li class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                        <a class="dropdown-item" href="#">Settings 1</a>
+                                                                        <a class="dropdown-item" href="#">Settings 2</a>
+                                                                    </div>
+                                                                </li>
+                                                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                                                </li>
+                                                                </ul> -->
                         <div class="clearfix"></div>
                     </div>
 
@@ -51,6 +51,7 @@
 
                                         <th class="column-title">S/No </th>
                                         <th class="column-title">Postion</th>
+                                        <th class="column-title">Department</th>
                                         <th class="column-title no-link last"><span class="nobr">Action</span>
                                         </th>
                                     </tr>
@@ -63,6 +64,7 @@
 
                                         <td class="">{{ $loop->iteration }}</td>
                                         <td class="">{{ $position->name }}</td>
+                                        <td class="">{{ $position->department->name }}</td>
                                         <td class=" last"><a data-toggle="modal"
                                                 data-target="#editPosition-{{ $position->id }}" data-whatever="@mdo"
                                                 data-placement="top" href="#" class="badge badge-primary">Edit</a>
@@ -92,10 +94,26 @@
                                                         <div class="form-group">
                                                             <label>Position</label>
                                                             <input type="text" name="name" class="form-control"
-                                                                value="{{$position->name}}" required>
+                                                                value="{{ $position->name }}" required>
                                                         </div>
 
-
+                                                        <div class="form-group">
+                                                            <input type="text" name="name" class="form-control"
+                                                                value="{{ $position->name }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Department</label>
+                                                            @foreach ($departments as $department)
+                                                                <select name="dept_id" class="form-control">
+                                                                    @foreach ($departments as $department)
+                                                                        <option
+                                                                            {{ $department->id == $position->department_id ? 'selected' : '' }}
+                                                                            value="{{ $department->id }}">
+                                                                            {{ $department->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            @endforeach
+                                                        </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">
@@ -170,6 +188,16 @@
                                                 <label>Position name</label>
                                                 <input type="text" name="name" class="form-control"
                                                     placeholder="Enter Position" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Department</label>
+                                                    <select name="dept_id" class="form-control">
+                                                        @foreach ($departments as $department)
+                                                            <option
+                                                                value="{{ $department->id }}">
+                                                                {{ $department->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                             </div>
 
                                             <div class="modal-footer">

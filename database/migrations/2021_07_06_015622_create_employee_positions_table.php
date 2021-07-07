@@ -16,6 +16,8 @@ class CreateEmployeePositionsTable extends Migration
         Schema::create('employee_positions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('dept_id');
+            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 

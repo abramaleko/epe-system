@@ -56,13 +56,19 @@ class SettingsController extends Controller
     public function position()
     {
         $positions = EmployeePosition::all();
-        return view('settings.positions')->with('positions', $positions);
+        $departments=Department::all();
+        return view('settings.positions')
+        ->with([
+            'departments' => $departments,
+            'positions' => $positions
+        ]);
     }
 
     public function addPosition(Request $request)
     {
         EmployeePosition::firstOrCreate([
             'name' => $request->name,
+             'dept_id' => $request->dept_id,
         ]);
 
         return back();

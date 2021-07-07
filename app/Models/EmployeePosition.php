@@ -15,4 +15,9 @@ class EmployeePosition extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function department()
+    {
+        $this->belongsTo(Department::class,'dept_id');
+    }
 }
