@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SettingsController;
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Auth::routes(['login' => false]);
-
+Auth::routes([
+    'reset' => false,
+]);
+//
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -78,7 +81,10 @@ Route::name('settings.')->group(function () {
     Route::post('/position/delete/{id}', [SettingsController::class, 'deletePosition'])->name('deletePosition');
 
     //comments views
-    Route::get('/comments', function () {
-        return view('settings.comments');
-    })->name('comments');
+
+    Route::get('/comments', [CommentsController::class, 'index'])->name('comments');
+    Route::post('/comments/add', [CommentsController::class, 'addComment'])->name('addComment');
+    Route::post('/comments/update/{id}', [CommentsController::class, 'updateComment'])->name('updateComment');
+    Route::get('/comments/delete/{id}', [CommentsController::class, 'deleteComment'])->name('deleteComment');
+
 });
