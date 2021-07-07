@@ -40,7 +40,7 @@ class TasksController extends Controller
     {
         //validate the data
         $this->validate($request, [
-            'budget' => 'string|required',
+            'budget' => 'required',
             'due_date' => 'date|required',
             'employee_id' => 'required',
             'task_detail' => 'string|required',
