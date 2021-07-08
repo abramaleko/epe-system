@@ -57,11 +57,13 @@ class SettingsController extends Controller
     public function position()
     {
         $comments = Comment::all();
+        $positions=EmployeePosition::all();
         $departments = Department::all();
         return view('settings.positions')
             ->with([
                 'departments' => $departments,
-                'comments' => $comments
+                'comments' => $comments,
+                'positions'=>$positions,
             ]);
     }
 
