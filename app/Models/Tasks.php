@@ -16,13 +16,4 @@ class Tasks extends Model
     {
         return $this->belongsTo(Employees::class, 'employee_id');
     }
-
-    public function checkCompletion($from, $to)
-    {
-        $date1= Carbon::parse($from);
-        $date2= Carbon::parse($to);
-        return $date1->diffInDays($date1);
-
-    }
-
 }

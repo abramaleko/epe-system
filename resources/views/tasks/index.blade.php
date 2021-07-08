@@ -30,18 +30,18 @@
                     <div class="x_title">
                         <h2>List of tasks assigned to employees </h2>
                         <!-- <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Settings 1</a>
-                                            <a class="dropdown-item" href="#">Settings 2</a>
-                                        </div>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                    </ul> -->
+                                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                                    </li>
+                                                                    <li class="dropdown">
+                                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                            <a class="dropdown-item" href="#">Settings 1</a>
+                                                                            <a class="dropdown-item" href="#">Settings 2</a>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                                                    </li>
+                                                                    </ul> -->
                         <div class="clearfix"></div>
                     </div>
 
@@ -73,19 +73,171 @@
                                         <tr class="even pointer">
                                             <td class="">{{ $task->employee->name }}</td>
                                             <td class="">{{ $task->created_at->format('M d Y') }} </td>
-                                            <td class="">{{ Carbon\Carbon::parse($task->completion_date)->format('M d Y') }}</td>
-                                            <td class=""><span class="badge badge-primary">
-                                                {{$task->checkCompletion($task->created_at,$task->completion_date)}}</span></td>
+                                            <td class="">
+                                                {{ Carbon\Carbon::parse($task->completion_date)->format('M d Y') }}</td>
+                                            <td class=""><span class="p-2 badge
+                                                                    @if ($task->status ===
+                                                    'On
+                                                    progress') badge-primary
+                                                @elseif ($task->status ==='Complete')
+                                                    badge-success
+                                                @else
+                                                    badge-danger @endif">
+                                                    {{ $task->status }}</span></td>
                                             <td class="a-right ">{{ $task->employee->department->name }}</td>
-                                            <td class=" last"><a data-toggle="modal" data-target="#editTask"
-                                                    data-whatever="@mdo" data-placement="top" href="#"
-                                                    class="badge badge-primary">Edit</a> <a data-toggle="modal"
-                                                    data-target="#deleteTask" data-whatever="@mdo" data-placement="top"
-                                                    title="Click here to delete Task" href="#"
-                                                    class="badge badge-danger">Delete</a>
+                                            <td class=" last"><a data-toggle="modal"
+                                                    data-target="#editTask-{{ $task->id }}" data-whatever="@mdo"
+                                                    data-placement="top" href="#"
+                                                    class="p-2 badge badge-primary">Details</a> <a data-toggle="modal"
+                                                    data-target="#deleteTask-{{ $task->id }}" data-whatever="@mdo"
+                                                    data-placement="top" title="Click here to delete Task" href="#"
+                                                    class="p-2 badge badge-danger">Delete</a>
                                             </td>
                                             </td>
                                         </tr>
+                                        <!--edit Task -->
+                                        <div class="modal fade" id="editTask-{{ $task->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit
+                                                            {{ $task->employee->name }} task</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" role="form"
+                                                            action="{{ route('tasks.update', $task->id) }}">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label>Employee</label>
+                                                                <select class="form-control" name="employee_id" id="">
+                                                                    @foreach ($employees as $employee)
+                                                                        <option
+                                                                            {{ $employee->id == $task->employee_id ? 'selected' : '' }}
+                                                                            value="{{ $employee->id }}">
+                                                                            {{ $employee->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Task</label>
+                                                                <textarea rows="4" id="task-detail" name="task_detail"
+                                                                    class="form-control">{{ $task->description }}</textarea>
+
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Due date</label>
+                                                                <input name="due_date" id="birthday"
+                                                                    class="date-picker form-control"
+                                                                    value="{{ $task->completion_date }}"
+                                                                    placeholder="dd-mm-yyyy" type="text" required="required"
+                                                                    type="text" onfocus="this.type='date'"
+                                                                    onmouseover="this.type='date'"
+                                                                    onclick="this.type='date'" onblur="this.type='text'"
+                                                                    onmouseout="timeFunctionLong(this)">
+                                                                <script>
+                                                                    function timeFunctionLong(input) {
+                                                                        setTimeout(function() {
+                                                                            input.type = 'text';
+                                                                        }, 60000);
+                                                                    }
+                                                                </script>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Budget used</label>
+                                                                <input type="number" name="budget" class="form-control"
+                                                                    required value="{{ $task->budget }}">
+
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Status</label>
+                                                                <select class="form-control" name="status" id="">
+                                                                    <option
+                                                                        {{ $task->status == 'On progress' ?? 'selected' }}
+                                                                        value="On progress">On progress</option>
+                                                                    <option
+                                                                        {{ $task->status == 'Complete' ?? 'selected' }}
+                                                                        value="Complete">Complete</option>
+                                                                    <option
+                                                                        {{ $task->status == 'Incomplete' ?? 'selected' }}
+                                                                        value="Incomplete">Incomplete</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Comment upon completion</label>
+                                                                <select
+                                                                    {{ $task->status == 'On progress' ? 'disabled' : '' }}
+                                                                    class="form-control" name="comment">
+                                                                    <option disabled selected="true">Choose ..</option>
+                                                                    @foreach ($comments as $comment)
+                                                                        <option value="{{ $comment->id }}">
+                                                                            {{ $comment->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">
+                                                                    <span>Close</span></button>
+                                                                <button type="submit"
+                                                                    {{ $task->status == 'On progress' ? '' : 'disabled' }}
+                                                                    class="btn btn-primary">
+                                                                    <span>Submit</span></button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- edit Task modal-->
+
+                                        <!-- delete Task modal-->
+
+                                        <div class="modal fade" id="deleteTask-{{ $task->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" name="site_form" role="form"
+                                                            action="{{ route('tasks.destroy', $task->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="form-group">
+                                                                <label class="text-center">Are you sure you want to delete
+                                                                    this
+                                                                    Task?</label>
+                                                                <input type="hidden" name="id" class="form-control"
+                                                                    value="1" required>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">
+                                                                    <span>No,Thanks</span></button>
+                                                                <button type="submit" name="Task" class="btn btn-danger">
+                                                                    <span>Delete</span></button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- delete Task modal-->
                                     @endforeach
 
 
@@ -93,112 +245,9 @@
                             </table>
                         </div>
 
-                        <!--edit Task -->
-                        <div class="modal fade" id="editTask" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" name="site_form" role="form" action="#">
 
-                                            <div class="form-group">
-                                                <label>Employee</label>
-                                                <select class="form-control" name="employees_id" id="">
-                                                    <option value="1">John Blank L</option>
-                                                    <option value="1">John Full L</option>
-                                                    <option value="1">John Null L</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Task</label>
-                                                <input type="text" name="task" class="form-control" placeholder="Training"
-                                                    required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Due date</label>
-                                                <input type="date" name="due_date" class="form-control" required>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label>Completion date</label>
-                                                <input type="date" name="completion_date" class="form-control" required>
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Budget used</label>
-                                                <input type="number" name="budget_used" class="form-control" required>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Status</label>
-                                                <select class="form-control" name="status" id="">
-                                                    <option value="1">Pending</option>
-                                                    <option value="1">On progress</option>
-                                                    <option value="1">Complete</option>
-                                                    <option value="1">Incomplete</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Comment upon completion</label>
-                                                <select class="form-control" name="status" id="">
-                                                    <option value="1">Excellent</option>
-                                                    <option value="1">Good</option>
-                                                    <option value="1">Fair</option>
-                                                    <option value="1">Poor</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    <span>Close</span></button>
-                                                <button type="submit" name="submit" class="btn btn-primary">
-                                                    <span>Submit</span></button>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- edit Task modal-->
-
-                        <!-- delete Task modal-->
-
-                        <div class="modal fade" id="deleteTask" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" name="site_form" role="form" action="#">
-                                            <div class="form-group">
-                                                <label class="text-center">Are you sure you want to delete this
-                                                    Task?</label>
-                                                <input type="hidden" name="id" class="form-control" value="1" required>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    <span>No,Thanks</span></button>
-                                                <button type="submit" name="Task" class="btn btn-danger">
-                                                    <span>Delete</span></button>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- delete Task modal-->
 
 
                     </div>

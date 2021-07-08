@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Employees;
+use App\Models\Tasks;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
@@ -18,6 +23,19 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard');
+        $data=[];
+        $data['tasksCompleted'] = Tasks::where('status', 'Complete')->count();
+        $data['tasksIncomplete'] = Tasks::where('status', 'InComplete')->count();
+        $data['ongoingTask']=Tasks::where('status', ' On progress')->count();
+        $data['departments']=Department::all()->count();
+        $data['employees']=Employees::all()->count();
+        $data['users']=User::all()->count();
+
+
+        return view('dashboard')
+        ->with([
+            'data' => $data,
+
+        ]);
     }
 }

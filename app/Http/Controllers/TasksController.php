@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Department;
+use App\Models\EmployeePosition;
 use App\Models\Employees;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
@@ -16,7 +19,14 @@ class TasksController extends Controller
     public function index()
     {
         $tasks = Tasks::all();
-        return view('tasks.index')->with('tasks', $tasks);
+        $employees = Employees::all();
+        $comments = Comment::all();
+        return view('tasks.index')
+            ->with([
+                'tasks' => $tasks,
+                'employees' => $employees,
+                'comments' => $comments
+            ]);
     }
 
     /**
@@ -39,8 +49,8 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         //validate the data
-        $this->validate($request, [
-            'budget' => 'required',
+        $request->validate([
+            'budget' => 'required|numeric',
             'due_date' => 'date|required',
             'employee_id' => 'required',
             'task_detail' => 'string|required',
@@ -87,7 +97,25 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      //  validate the data
+        $request->validate([
+            'budget' => 'required|numeric',
+            'due_date' => 'date|required',
+            'employee_id' => 'required',
+            'task_detail' => 'string|required',
+        ]);
+        $task = Tasks::find($id);
+        $task->description = $request->task_detail;
+        $task->employee_id = $request->employee_id;
+        $task->completion_date = $request->due_date;
+        $task->status = $request->status;
+        $task->budget = $request->budget;
+        // if ($request->comment) {
+        //     $task->comment = $request->comment;
+        // }
+        $task->save();
+
+        return back();
     }
 
     /**
@@ -98,6 +126,8 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Tasks::destroy($id);
+
+        return back();
     }
 }

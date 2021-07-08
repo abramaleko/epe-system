@@ -14,10 +14,11 @@ class EmployeePosition extends Model
 
     protected $fillable = [
         'name',
+        'dept_id'
     ];
 
     public function department()
     {
-        $this->belongsTo(Department::class,'dept_id');
+       return $this->belongsTo(Department::class, 'dept_id');
     }
 }

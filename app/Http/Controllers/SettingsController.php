@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Department;
 use App\Models\EmployeePosition;
 use App\Models\User;
@@ -55,20 +56,20 @@ class SettingsController extends Controller
 
     public function position()
     {
-        $positions = EmployeePosition::all();
-        $departments=Department::all();
+        $comments = Comment::all();
+        $departments = Department::all();
         return view('settings.positions')
-        ->with([
-            'departments' => $departments,
-            'positions' => $positions
-        ]);
+            ->with([
+                'departments' => $departments,
+                'comments' => $comments
+            ]);
     }
 
     public function addPosition(Request $request)
     {
         EmployeePosition::firstOrCreate([
             'name' => $request->name,
-             'dept_id' => $request->dept_id,
+            'dept_id' => $request->dept_id,
         ]);
 
         return back();

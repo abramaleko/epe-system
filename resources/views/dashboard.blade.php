@@ -5,32 +5,32 @@
             <div class="tile_count">
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Tasks completed</span>
-                    <div class="count">2500</div>
-                    <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                    <div class="count">{{$data['tasksCompleted']}}</div>
+                    {{-- <span class="count_bottom"><i class="green">4% </i> From last Week</span> --}}
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-clock-o"></i> Total incomplete tasks</span>
-                    <div class="count">123</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                    <div class="count">{{$data['tasksIncomplete']}}</div>
+                    {{-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span> --}}
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Pending tasks</span>
-                    <div class="count green">250</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <span class="count_top"><i class="fa fa-user"></i> Ongoing tasks</span>
+                    <div class="count green">{{$data['ongoingTask']}}</div>
+                    {{-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span> --}}
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Departments</span>
-                    <div class="count">10</div>
+                    <div class="count">{{$data['departments']}}</div>
                     <!-- <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span> -->
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Employees</span>
-                    <div class="count">50</div>
+                    <div class="count">{{$data['employees']}}</div>
                     <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span> -->
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total System users</span>
-                    <div class="count">2</div>
+                    <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+                    <div class="count">{{$data['users']}}</div>
                     <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span> -->
                 </div>
             </div>

@@ -38,7 +38,6 @@ Route::resource('employees', EmployeeController::class)->only([
 //Tasks routes
 Route::resource('tasks', TasksController::class);
 
-
 //Attendance routes
 Route::get('/attendance', function () {
     return view('attendances.index');

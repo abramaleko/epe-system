@@ -65,11 +65,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="item form-group d-none">
+                            <div class="item form-group">
                                 <label for="position_id" class="col-form-label col-md-3 col-sm-3 label-align">Employee
                                     Position</label>
                                 <div class="hidden col-md-6 col-sm-6">
-                                    <select name="position_id" class="form-control name=" employee_id" id="">
+                                    <select name="position_id" class="form-control" name="employee_id" id="">
                                         <option selected disabled>Choose ..</option>
                                         @foreach ($positions as $positon)
                                             <option value="{{ $positon->id }}">{{ $positon->name }}</option>
