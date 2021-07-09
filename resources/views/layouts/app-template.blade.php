@@ -98,14 +98,14 @@
 
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-check-circle"></i> Attendance <span
+                                {{-- <li><a><i class="fa fa-check-circle"></i> Attendance <span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="{{ route('attendance.index') }}">Employees attendance</a></li>
                                         <li><a href="{{ route('attendance.create') }}">Add new attendance</a></li>
 
                                     </ul>
-                                </li>
+                                </li> --}}
 
 
 
@@ -117,10 +117,8 @@
                                 {{-- <li><a><i class="fa fa-line-chart"></i>Reports <span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="{{ route('report.punctuality') }}">Punctuality report</a></li>
                                         <li><a href="{{ route('report.productivity') }}">Productivity report</a></li>
                                         <li><a href="{{ route('report.efficiency') }}">Efficiency report</a></li>
-                                        <li><a href="quality.html">Quality report</a></li>
                                     </ul>
                                 </li> --}}
 
@@ -172,7 +170,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right"
                                     aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}"> Profile</a>
+                                    {{-- <a class="dropdown-item" href="{{ route('profile') }}"> Profile</a> --}}
                                     <a class="dropdown-item" href="javascript:;">Help</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

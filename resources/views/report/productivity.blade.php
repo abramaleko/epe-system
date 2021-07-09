@@ -28,7 +28,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>This report shows employee's productivity based on the amount of work they do in agiven time
+                        <h2>This report shows ratio of how many tasks have been completed per given tasks to each employee
                         </h2>
                         <!-- <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
@@ -48,12 +49,8 @@ Route::get('/attendance/new', function () {
 
 
 //Reports routes
-Route::get('/report/punctuality', function () {
-    return view('report.punctuality');
-})->name('report.punctuality');
-Route::get('/report/productivity', function () {
-    return view('report.productivity');
-})->name('report.productivity');
+
+Route::get('/report/productivity',[ReportController::class,'productivityReport'])->name('report.productivity');
 Route::get('/report/efficiency', function () {
     return view('report.efficiency');
 })->name('report.efficiency');

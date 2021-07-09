@@ -26,9 +26,9 @@ class DashboardController extends Controller
         $data=[];
         $data['tasksCompleted'] = Tasks::where('status', 'Complete')->count();
         $data['tasksIncomplete'] = Tasks::where('status', 'InComplete')->count();
-        $data['ongoingTask']=Tasks::where('status', ' On progress')->count();
+        $data['ongoingTask']=Tasks::where('status', 'On progress')->count();
         $data['departments']=Department::all()->count();
-        $data['employees']=Employees::all()->count();
+        $data['employees']=Employees::all();
         $data['users']=User::all()->count();
 
 
