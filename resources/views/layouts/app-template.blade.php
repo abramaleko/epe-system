@@ -114,13 +114,13 @@
                         <div class="menu_section">
                             <h3>AddOns</h3>
                             <ul class="nav side-menu">
-                                {{-- <li><a><i class="fa fa-line-chart"></i>Reports <span
+                                <li><a><i class="fa fa-line-chart"></i>Reports <span
                                             class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="{{ route('report.productivity') }}">Productivity report</a></li>
                                         <li><a href="{{ route('report.efficiency') }}">Efficiency report</a></li>
                                     </ul>
-                                </li> --}}
+                                </li>
 
                                 <li><a><i class="fa fa-cogs"></i>Settings <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
