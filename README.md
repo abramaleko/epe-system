@@ -1,6 +1,6 @@
-  #  Introduction
+  # Introduction
 
-    Epe system is a web based system which is designed to help managers to evaluate the productivity and efficiency of employees within an orgarnization.
+  Epe system is a web based system which is designed to help managers to evaluate the productivity and efficiency of employees within an orgarnization.
 
   ## Usage
 
