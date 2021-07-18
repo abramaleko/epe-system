@@ -10,8 +10,8 @@
 
   And simply run the following command to import the tables into your database
 
-    ```bash
-    pip artisan migrate
+    ```
+    php artisan migrate
     ```
 
  ## Contributing
